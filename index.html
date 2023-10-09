@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=30, initial-scale=1">
+    <meta name="description" content="Generer un QRCode facilement et de manière sécurisée avec le generateur de qrcode open source.">
+    <meta name="keywords" content="qrcode, qr code, generateur, generateur de qrcode, generateur de qr code, qr code generator, qrcode generator, generateur de qrcode open source, generateur de qr code open source, qr code generator open source, qrcode generator open source">
+    <meta name="robots" content="index, follow">
+    <meta name="revisit-after" content="3 month">
+    <meta name="language" content="fr">
+    <title>Générateur de Qrcode</title>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+        input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        img {
+            margin-top: 10px;
+        }
+
+        .input--container {
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .w-30 {
+            width: 30vw;
+        }
+
+        header {
+            text-align: center;
+        }
+
+        .input--item {
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+</head>
+<body style="display: flex; flex-direction: column; justify-content: space-between; align-items: center; height: 99vh;">
+    <header>
+        <h1>Générateur de QRCode gratuit et sécurisé !</h1>
+        <p>Le QRCode généré est sécurisé, le générateur ne garde aucune trace des codes QR générés !</p>
+    </header>
+
+    <div class="input--container">
+        <div class="">
+            <div class="input--item">
+                <input type="text" class="w-30" id="input" maxlength="150" minlength="1" placeholder="Entrez votre texte">
+                <small>Le texte peut contenir un maximum de 150 caractères</small>
+            </div>
+
+            <button class="w-30" onclick="generateQRCode(document.getElementById('input').value)">Generer le QR Code</button>
+        </div>
+
+        <img class="w-30" id="qrcode" />
+    </div>
+
+    <div class="footer">
+        <a href="https://github.com/quentinchampenois/wasmcode" target="_blank">Code source sur Github</a>
+    </div>
+    <script src="wasm_exec.js"></script>
+    <script>
+        const go = new Go();
+        WebAssembly.instantiateStreaming(fetch("main.wasm"), go.importObject).then((result) => {
+            go.run(result.instance);
+        });
+    </script>
+</body>
+</html>
+
