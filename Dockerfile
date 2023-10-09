@@ -13,7 +13,7 @@ RUN go get -u github.com/skip2/go-qrcode
 # Build the Go WebAssembly binary
 RUN GOOS=js GOARCH=wasm go build -o main.wasm main.go
 
-FROM nginx:alpine
+FROM nginx:latest
 
 # Remove default Nginx files
 RUN rm -rf /usr/share/nginx/html/*
