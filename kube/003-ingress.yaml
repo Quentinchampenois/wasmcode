@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: wasmcode-ingress
+  namespace: wasmcode
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  tls:
+    - hosts:
+        - qrcode.quentinchampenois.fr
+      secretName: letsencrypt-secret-prod
+  rules:
+    - host: qrcode.quentinchampenois.fr
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: wasmcode-svc
+                port:
+                  number: 80
+

@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wasmcode-deployment
+  namespace: wasmcode
+  labels:
+    app: wasmcode
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wasmcode
+  template:
+    metadata:
+      labels:
+        app: wasmcode
+    spec:
+      containers:
+        - name: wasmcode
+          image: quentinchampenois/wasmcode:1.0.1
+          ports:
+            - containerPort: 8080
