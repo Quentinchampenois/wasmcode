@@ -21,6 +21,7 @@ RUN rm -rf /usr/share/nginx/html/*
 # Copy files from builder stage and additional files
 COPY --from=builder /go/src/app/main.wasm /usr/share/nginx/html/
 COPY --from=builder /go/src/app/index.html /usr/share/nginx/html/
+COPY --from=builder /go/src/app/not_found.html /usr/share/nginx/html/
 COPY --from=builder /usr/local/go/misc/wasm/wasm_exec.js /usr/share/nginx/html/
 
 # Copy Nginx configuration file
